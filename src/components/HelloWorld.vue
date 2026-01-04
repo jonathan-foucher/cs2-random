@@ -27,6 +27,7 @@ const count = ref(0)
     <a href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support" target="_blank">Vue Docs Scaling up Guide</a>.
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <q-chip color="primary" text-color="white" icon="event"> Add to calendar </q-chip>
 </template>
 
 <style scoped>
