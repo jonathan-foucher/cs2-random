@@ -29,5 +29,6 @@ const { getPistolGroups, getMainWeaponGroups } = useWeapons()
   max-width: 18%;
   height: 100%;
   max-height: 800px;
+  background: #a5a5a5;
 }
 </style>
