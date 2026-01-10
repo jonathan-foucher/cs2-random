@@ -1,3 +1,3 @@
-# cs2-random-front
+# cs2-random
 
 App for random weapons and maps wheel on Counter Strike 2.
