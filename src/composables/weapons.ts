@@ -1,13 +1,14 @@
 import type WeaponType from '@/types/WeaponType'
 import weaponsData from '@/assets/json/weapons.json'
+import { BASE_PATH } from '@/constants'
 
-export function useWeapons() {
+export const useWeapons = () => {
   const pistolType: string = 'pistol'
   const data: Array<WeaponType> = weaponsData
 
   const getWeaponImagePath = (name: string): string => {
     const fileName: string = name.replace(' ', '_')
-    return `/cs2-random/images/weapons/${fileName}.webp`
+    return `${BASE_PATH}/images/weapons/${fileName}.webp`
   }
 
   const getPistolGroups = (): Array<Array<string>> => data.find((d: WeaponType) => d.type === pistolType)?.groups ?? []
