@@ -7,7 +7,7 @@ export function useWeapons() {
 
   const getWeaponImagePath = (name: string): string => {
     const fileName: string = name.replace(' ', '_')
-    return `/images/weapons/${fileName}.webp`
+    return `/cs2-random/images/weapons/${fileName}.webp`
   }
 
   const getPistolGroups = (): Array<Array<string>> => data.find((d: WeaponType) => d.type === pistolType)?.groups ?? []
