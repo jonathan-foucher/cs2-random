@@ -1,0 +1,39 @@
+name: Build and deploy
+run-name: Build and deploy - ${{ github.ref_name }}
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout project
+        id: checkout
+        uses: actions/checkout@v4
+      - name: build app
+        id: build
+        run: |
+          yarn
+          yarn run build
+      - name: upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+
+  deploy:
+    needs: build
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy github page
+        id: deployment
+        uses: actions/deploy-pages@v4
