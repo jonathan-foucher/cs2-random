@@ -1,5 +1,5 @@
 import weaponsData from '@/assets/json/weapons.json'
-import type WeaponType from '@/types/WeaponType.ts'
+import type WeaponType from '@/types/WeaponType'
 
 export function useWeapons() {
   const pistolType: string = 'pistol'

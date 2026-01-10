@@ -1,16 +1,40 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
+import type Player from '@/types/Player'
 
 export const usePlayerStore = defineStore('player', () => {
-  const playerNames = ref<Array<string>>([])
+  const LOCAL_STORAGE_PLAYERS = 'players'
+  const LOCAL_STORAGE_NUMBER_OF_PLAYERS = 'numberOfPlayers'
+  const players = ref<Array<Player>>(JSON.parse(localStorage.getItem(LOCAL_STORAGE_PLAYERS) ?? '[]'))
 
-  const getPlayerName = (id: number): string => playerNames.value[id] ?? `Player ${id}`
+  const numberOfPlayers = ref<number>(parseInt(localStorage.getItem(LOCAL_STORAGE_NUMBER_OF_PLAYERS) ?? '1'))
+  const PLAYER_IDS = [...Array(5).keys()].map((i) => i + 1)
+
+  const getPlayerById = (id: number): Player => players.value.find((player: Player) => player.id === id)
+
+  const getPlayerName = (id: number): string => getPlayerById(id)?.name ?? `Player ${id}`
 
   const editPlayerName = (id: number, name: string): void => {
-    playerNames.value[id] = name
+    const foundPlayer = getPlayerById(id)
+    if (foundPlayer) {
+      foundPlayer.name = name
+    } else {
+      const newPlayer = {} as Player
+      newPlayer.id = id
+      newPlayer.name = name
+      players.value.push(newPlayer)
+    }
+
+    localStorage.setItem(LOCAL_STORAGE_PLAYERS, JSON.stringify(players.value))
   }
 
+  watch(numberOfPlayers, (newValue: number) => {
+    localStorage.setItem(LOCAL_STORAGE_NUMBER_OF_PLAYERS, String(newValue))
+  })
+
   return {
+    numberOfPlayers,
+    PLAYER_IDS,
     getPlayerName,
     editPlayerName,
   }

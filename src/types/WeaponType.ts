@@ -1,4 +1,4 @@
-export default interface WeaponGroup {
+export default interface WeaponType {
   type: string
   group: Array<Array<string>>
 }
