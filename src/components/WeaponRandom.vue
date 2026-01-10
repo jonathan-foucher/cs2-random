@@ -11,12 +11,12 @@ const { getWeaponImagePath } = useWeapons()
 const getRandomSlideNumber = (): number => Math.floor(Math.random() * props.weaponGroups.length)
 
 const slideNumber = ref<number>(getRandomSlideNumber())
-const speed = ref<number | boolean>(false)
+const speed = ref<number>(0)
 const timer = ref<ReturnType<typeof setTimeout>>()
 
 const randomize = () => {
   if (speed.value > MIN_SPEED) {
-    speed.value = false
+    speed.value = 0
     return
   }
   speed.value += 10

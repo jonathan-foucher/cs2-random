@@ -13,16 +13,16 @@ const { getPlayerName, editPlayerName } = playerStore
 
 const playerName = ref<string>(getPlayerName(props.playerId))
 
-const pistolRandom = ref<WeaponRandom>()
-const mainWeaponRandom = ref<WeaponRandom>()
+const pistolRandom = ref<typeof WeaponRandom>()
+const mainWeaponRandom = ref<typeof WeaponRandom>()
 
 const savePlayerName = (value: string): void => {
   editPlayerName(props.playerId, value)
 }
 
 const startRandomize = () => {
-  pistolRandom.value.startRandomize()
-  mainWeaponRandom.value.startRandomize()
+  pistolRandom.value?.startRandomize()
+  mainWeaponRandom.value?.startRandomize()
 }
 
 defineExpose({

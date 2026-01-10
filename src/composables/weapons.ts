@@ -1,5 +1,5 @@
-import weaponsData from '@/assets/json/weapons.json'
 import type WeaponType from '@/types/WeaponType'
+import weaponsData from '@/assets/json/weapons.json'
 
 export function useWeapons() {
   const pistolType: string = 'pistol'
@@ -10,7 +10,7 @@ export function useWeapons() {
     return `/images/weapons/${fileName}.webp`
   }
 
-  const getPistolGroups = (): Array<Array<string>> => data.find((d: WeaponType) => d.type === pistolType)?.groups
+  const getPistolGroups = (): Array<Array<string>> => data.find((d: WeaponType) => d.type === pistolType)?.groups ?? []
 
   const getMainWeaponGroups = (): Array<Array<string>> =>
     data.filter((d: WeaponType) => d.type !== pistolType)?.flatMap((d: WeaponType) => d.groups)

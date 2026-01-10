@@ -4,14 +4,14 @@ import PlayerCard from '@/components/PlayerCard.vue'
 import { storeToRefs } from 'pinia'
 import { usePlayerStore } from '@/stores/player'
 
-const playerCards = ref<PlayerCard>()
+const playerCards = ref<Array<typeof PlayerCard>>()
 
 const playerStore = usePlayerStore()
 const { PLAYER_IDS } = playerStore
 const { numberOfPlayers } = storeToRefs(playerStore)
 
 const startRandomize = (): void => {
-  for (const playerCard of playerCards.value) {
+  for (const playerCard of playerCards.value ?? []) {
     playerCard.startRandomize()
   }
 }

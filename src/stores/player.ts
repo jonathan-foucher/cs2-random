@@ -10,7 +10,7 @@ export const usePlayerStore = defineStore('player', () => {
   const numberOfPlayers = ref<number>(parseInt(localStorage.getItem(LOCAL_STORAGE_NUMBER_OF_PLAYERS) ?? '1'))
   const PLAYER_IDS = [...Array(5).keys()].map((i) => i + 1)
 
-  const getPlayerById = (id: number): Player => players.value.find((player: Player) => player.id === id)
+  const getPlayerById = (id: number): Player | undefined => players.value.find((player: Player) => player.id === id)
 
   const getPlayerName = (id: number): string => getPlayerById(id)?.name ?? `Player ${id}`
 
