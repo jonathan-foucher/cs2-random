@@ -59,7 +59,7 @@ defineExpose({
 <style scoped>
 .weapon-carousel {
   background: linear-gradient(to right, #1e4b73, 60%, #cc9900);
-  max-height: 200px;
+  max-height: 30vh;
   border-style: solid;
   border-width: 4px;
 }

@@ -27,7 +27,7 @@ const startRandomize = (): void => {
           </q-btn>
           <q-select filled v-model="numberOfPlayers" :options="PLAYER_IDS" bg-color="grey-5" class="column" />
         </div>
-        <div class="row justify-around items-center">
+        <div class="row justify-center items-center player-card">
           <PlayerCard v-for="playerId in numberOfPlayers" :key="playerId" ref="playerCards" :player-id="playerId" />
         </div>
       </q-page>
@@ -38,5 +38,9 @@ const startRandomize = (): void => {
 <style scoped>
 .main-page {
   background: #2d2d2d;
+}
+
+.player-card {
+  gap: 2%;
 }
 </style>

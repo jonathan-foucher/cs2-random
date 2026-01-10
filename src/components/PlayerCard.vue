@@ -32,7 +32,7 @@ defineExpose({
 
 <template>
   <q-card class="player-card">
-    <q-card-section class="q-pb-sm text-center text-bold">
+    <q-card-section class="q-pb-sm text-center text-bold text-h6 ellipsis">
       {{ playerName }}
     </q-card-section>
 
@@ -62,8 +62,6 @@ defineExpose({
 .player-card {
   width: 100%;
   max-width: 18%;
-  height: 100%;
-  max-height: 800px;
   background: #a5a5a5;
 }
 </style>
