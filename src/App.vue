@@ -25,7 +25,7 @@ const startRandomize = (): void => {
 </script>
 
 <template>
-  <q-layout>
+  <q-layout class="disable-select">
     <q-page-container>
       <q-page class="column main-page">
         <div class="row justify-center items-center q-my-lg">
@@ -61,5 +61,12 @@ const startRandomize = (): void => {
 
 .player-card {
   gap: 2%;
+}
+
+.disable-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>

@@ -31,6 +31,7 @@ defineExpose({
     class="random-carousel rounded-borders"
     animated
     infinite
+    keep-alive
     transition-next="slide-down"
     :autoplay="speed"
   >
@@ -38,10 +39,11 @@ defineExpose({
       v-for="(map, index) in maps"
       :key="index"
       :name="index"
+      loading="eager"
       class="column no-wrap justify-center q-pa-none"
     >
       <div class="row items-center no-wrap full-height">
-        <q-img :src="getImagePath(map, MAPS_PATH, PNG_FILE_EXTENSION)" class="full-height" />
+        <q-img :src="getImagePath(map, MAPS_PATH, PNG_FILE_EXTENSION)" loading="eager" height="100%" fit="fill" />
       </div>
     </q-carousel-slide>
   </q-carousel>

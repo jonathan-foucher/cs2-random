@@ -28,6 +28,7 @@ defineExpose({
     class="random-carousel rounded-borders"
     animated
     infinite
+    keep-alive
     transition-next="slide-down"
     :autoplay="speed"
   >
@@ -37,11 +38,13 @@ defineExpose({
       :name="index"
       class="column no-wrap justify-center"
     >
-      <div class="row items-center no-wrap">
+      <div class="row items-center no-wrap weapon-images-row">
         <q-img
           v-for="weapon in weaponGroup"
           :key="weapon"
           :src="getImagePath(weapon, WEAPONS_PATH, WEBPB_FILE_EXTENSION)"
+          height="100%"
+          fit="scale-down"
         />
       </div>
     </q-carousel-slide>
@@ -54,5 +57,9 @@ defineExpose({
   max-height: 20vh;
   border-style: solid;
   border-width: 4px;
+}
+
+.weapon-images-row {
+  height: 100%;
 }
 </style>
