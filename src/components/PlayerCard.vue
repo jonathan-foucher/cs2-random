@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { QInput } from 'quasar'
 import WeaponRandom from '@/components/WeaponRandom.vue'
 import { useWeapons } from '@/composables/weapons'
@@ -12,11 +12,11 @@ const { getPistolGroups, getMainWeaponGroups } = useWeapons()
 const playerStore = usePlayerStore()
 const { getPlayerName, editPlayerName } = playerStore
 
-const playerName = ref<string>(getPlayerName(props.playerId))
-
 const pistolRandom = ref<typeof WeaponRandom>()
 const mainWeaponRandom = ref<typeof WeaponRandom>()
 const playerNameInput = ref<typeof QInput>()
+
+const playerName = computed<string>(() => getPlayerName(props.playerId))
 
 const savePlayerName = (value: string): void => {
   editPlayerName(props.playerId, value)

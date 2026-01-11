@@ -5,6 +5,7 @@ import MapCard from './components/MapCard.vue'
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
 import { usePlayerStore } from '@/stores/player'
+import LanguageSelection from './components/LanguageSelection.vue'
 
 const { t } = useI18n()
 
@@ -28,7 +29,7 @@ const startRandomize = (): void => {
     <q-page-container>
       <q-page class="column main-page">
         <div class="row justify-center items-center q-my-lg">
-          <q-btn color="amber-10" size="lg" icon-right="refresh" class="column q-mx-md" @click="startRandomize">
+          <q-btn color="amber-10" size="lg" icon-right="refresh" class="column" @click="startRandomize">
             {{ t('global.launch') }}
           </q-btn>
           <q-select
@@ -37,9 +38,11 @@ const startRandomize = (): void => {
             :options="PLAYER_IDS"
             :prefix="`${t('global.number-of-players')}:`"
             bg-color="grey-5"
-            class="column"
+            class="column q-mx-md"
           />
+          <LanguageSelection class="absolute-top-right q-ma-md" />
         </div>
+
         <div class="row justify-center items-center player-card">
           <PlayerCard v-for="playerId in numberOfPlayers" :key="playerId" ref="playerCards" :player-id="playerId" />
         </div>
