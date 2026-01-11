@@ -3,7 +3,10 @@ import { ref } from 'vue'
 import PlayerCard from '@/components/PlayerCard.vue'
 import MapCard from './components/MapCard.vue'
 import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
 import { usePlayerStore } from '@/stores/player'
+
+const { t } = useI18n()
 
 const playerCards = ref<Array<typeof PlayerCard>>()
 const mapCard = ref<typeof MapCard>()
@@ -26,13 +29,13 @@ const startRandomize = (): void => {
       <q-page class="column main-page">
         <div class="row justify-center items-center q-my-lg">
           <q-btn color="amber-10" size="lg" icon-right="refresh" class="column q-mx-md" @click="startRandomize">
-            Launch
+            {{ t('global.launch') }}
           </q-btn>
           <q-select
             filled
             v-model="numberOfPlayers"
             :options="PLAYER_IDS"
-            prefix="Number of players: "
+            :prefix="`${t('global.number-of-players')}:`"
             bg-color="grey-5"
             class="column"
           />

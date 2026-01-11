@@ -1,0 +1,16 @@
+{
+  "en-GB": {
+    "global": {
+      "launch": "Launch",
+      "number-of-players": "Number of players",
+      "player": "Player"
+    }
+  },
+  "fr-FR": {
+    "global": {
+      "launch": "Lancer",
+      "number-of-players": "Nombre de joueurs",
+      "player": "Joueur "
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import type Player from '@/types/Player'
+import { useI18n } from 'vue-i18n'
 
 export const usePlayerStore = defineStore('player', () => {
   const LOCAL_STORAGE_PLAYERS = 'players'
@@ -10,9 +11,11 @@ export const usePlayerStore = defineStore('player', () => {
   const numberOfPlayers = ref<number>(parseInt(localStorage.getItem(LOCAL_STORAGE_NUMBER_OF_PLAYERS) ?? '1'))
   const PLAYER_IDS = [...Array(5).keys()].map((i) => i + 1)
 
+  const { t } = useI18n()
+
   const getPlayerById = (id: number): Player | undefined => players.value.find((player: Player) => player.id === id)
 
-  const getPlayerName = (id: number): string => getPlayerById(id)?.name ?? `Player ${id}`
+  const getPlayerName = (id: number): string => getPlayerById(id)?.name ?? `${t('global.player')} ${id}`
 
   const editPlayerName = (id: number, name: string): void => {
     const foundPlayer = getPlayerById(id)

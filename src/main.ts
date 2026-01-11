@@ -11,8 +11,18 @@ import 'quasar/src/css/index.sass'
 import { createPinia } from 'pinia'
 const pinia = createPinia()
 
+// i18n
+import { createI18n } from 'vue-i18n'
+import translations from '@/assets/json/translations.json'
+
+const i18n = createI18n({
+  fallbackLocale: 'en-GB',
+  messages: translations,
+})
+
 createApp(App)
   .use(pinia)
+  .use(i18n)
   .use(Quasar, {
     plugins: { Notify },
     lang: quasarLang,
