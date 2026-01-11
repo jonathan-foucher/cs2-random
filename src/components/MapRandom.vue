@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useMaps } from '@/composables/maps'
 import { useImages } from '@/composables/images'
-import { WEAPONS_PATH, WEBPB_FILE_EXTENSION } from '@/constants'
+import { MAPS_PATH, PNG_FILE_EXTENSION } from '@/constants'
 
 const MAX_SPEED: number = 50
 const MIN_SPEED: number = 1000
 
-const props = defineProps<{ weaponGroups: Array<Array<string>> }>()
+const { getMaps } = useMaps()
+const maps = getMaps()
+
 const { getImagePath } = useImages()
 
-const getRandomSlideNumber = (): number => Math.floor(Math.random() * props.weaponGroups.length)
+const getRandomSlideNumber = (): number => Math.floor(Math.random() * maps.length)
 
 const slideNumber = ref<number>(getRandomSlideNumber())
 const speed = ref<number>(0)
@@ -45,17 +48,13 @@ defineExpose({
     :autoplay="speed"
   >
     <q-carousel-slide
-      v-for="(weaponGroup, index) in weaponGroups"
+      v-for="(map, index) in maps"
       :key="index"
       :name="index"
-      class="column no-wrap justify-center"
+      class="column no-wrap justify-center q-pa-none"
     >
-      <div class="row items-center no-wrap">
-        <q-img
-          v-for="weapon in weaponGroup"
-          :key="weapon"
-          :src="getImagePath(weapon, WEAPONS_PATH, WEBPB_FILE_EXTENSION)"
-        />
+      <div class="row items-center no-wrap full-height">
+        <q-img :src="getImagePath(map, MAPS_PATH, PNG_FILE_EXTENSION)" class="full-height" />
       </div>
     </q-carousel-slide>
   </q-carousel>
@@ -64,7 +63,7 @@ defineExpose({
 <style scoped>
 .random-carousel {
   background: linear-gradient(to right, #1e4b73, 60%, #cc9900);
-  max-height: 20vh;
+  max-height: 25vh;
   border-style: solid;
   border-width: 4px;
 }

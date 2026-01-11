@@ -1,20 +1,14 @@
 import type WeaponType from '@/types/WeaponType'
 import weaponsData from '@/assets/json/weapons.json'
-import { BASE_PATH } from '@/constants'
+import { PISTOL_TYPE } from '@/constants'
 
 export const useWeapons = () => {
-  const pistolType: string = 'pistol'
   const data: Array<WeaponType> = weaponsData
 
-  const getWeaponImagePath = (name: string): string => {
-    const fileName: string = name.replace(' ', '_')
-    return `${BASE_PATH}/images/weapons/${fileName}.webp`
-  }
-
-  const getPistolGroups = (): Array<Array<string>> => data.find((d: WeaponType) => d.type === pistolType)?.groups ?? []
+  const getPistolGroups = (): Array<Array<string>> => data.find((d: WeaponType) => d.type === PISTOL_TYPE)?.groups ?? []
 
   const getMainWeaponGroups = (): Array<Array<string>> =>
-    data.filter((d: WeaponType) => d.type !== pistolType)?.flatMap((d: WeaponType) => d.groups)
+    data.filter((d: WeaponType) => d.type !== PISTOL_TYPE)?.flatMap((d: WeaponType) => d.groups)
 
-  return { getWeaponImagePath, getPistolGroups, getMainWeaponGroups }
+  return { getPistolGroups, getMainWeaponGroups }
 }
