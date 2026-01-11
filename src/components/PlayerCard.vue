@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { QInput } from 'quasar'
 import WeaponRandom from '@/components/WeaponRandom.vue'
 import { useWeapons } from '@/composables/weapons'
 import { usePlayerStore } from '@/stores/player'
@@ -15,6 +16,7 @@ const playerName = ref<string>(getPlayerName(props.playerId))
 
 const pistolRandom = ref<typeof WeaponRandom>()
 const mainWeaponRandom = ref<typeof WeaponRandom>()
+const playerNameInput = ref<typeof QInput>()
 
 const savePlayerName = (value: string): void => {
   editPlayerName(props.playerId, value)
@@ -37,13 +39,18 @@ defineExpose({
     </q-card-section>
 
     <q-btn flat round size="sm" icon="edit" class="absolute-top-right q-pa-sm">
-      <q-popup-edit v-model="playerName" v-slot="playerNameInput" @save="savePlayerName">
+      <q-popup-edit
+        v-model="playerName"
+        v-slot="playerNamePopup"
+        @show="playerNameInput?.select()"
+        @save="savePlayerName"
+      >
         <q-input
-          v-model="playerNameInput.value"
+          v-model="playerNamePopup.value"
+          ref="playerNameInput"
           dense
-          autofocus
-          @keyup.enter="playerNameInput.set"
-          @keyup.esc="playerNameInput.cancel"
+          @keyup.enter="playerNamePopup.set"
+          @keyup.esc="playerNamePopup.cancel"
         />
       </q-popup-edit>
     </q-btn>
