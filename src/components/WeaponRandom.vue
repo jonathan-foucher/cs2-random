@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useImages } from '@/composables/images'
+import { useRandomize } from '@/composables/randomize'
 import { WEAPONS_PATH, WEBPB_FILE_EXTENSION } from '@/constants'
-
-const MAX_SPEED: number = 50
-const MIN_SPEED: number = 1000
 
 const props = defineProps<{ weaponGroups: Array<Array<string>> }>()
 const { getImagePath } = useImages()
@@ -13,21 +11,10 @@ const getRandomSlideNumber = (): number => Math.floor(Math.random() * props.weap
 
 const slideNumber = ref<number>(getRandomSlideNumber())
 const speed = ref<number>(0)
-const timer = ref<ReturnType<typeof setTimeout>>()
 
-const randomize = () => {
-  if (speed.value > MIN_SPEED) {
-    speed.value = 0
-    return
-  }
-  speed.value += 10
-  timer.value = setTimeout(() => randomize(), 200)
-}
-
+const { launchRandomize } = useRandomize()
 const startRandomize = () => {
-  clearTimeout(timer.value)
-  speed.value = MAX_SPEED
-  randomize()
+  launchRandomize(speed)
 }
 
 defineExpose({
