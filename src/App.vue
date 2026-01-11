@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import PlayerCard from '@/components/PlayerCard.vue'
-import MapCard from './components/MapCard.vue'
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
+import PlayerCard from '@/components/player/PlayerCard.vue'
+import MapCard from '@/components/map/MapCard.vue'
+import LanguageSelection from '@/components/common/LanguageSelection.vue'
 import { usePlayerStore } from '@/stores/player'
-import LanguageSelection from './components/LanguageSelection.vue'
 
 const { t } = useI18n()
 

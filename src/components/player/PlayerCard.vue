@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { QInput } from 'quasar'
-import WeaponRandom from '@/components/WeaponRandom.vue'
+import WeaponRandom from '@/components/player/WeaponRandom.vue'
 import { useWeapons } from '@/composables/weapons'
 import { usePlayerStore } from '@/stores/player'
 

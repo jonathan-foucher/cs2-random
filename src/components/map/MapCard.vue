@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import MapRandom from '@/components/MapRandom.vue'
+import MapRandom from '@/components/map/MapRandom.vue'
 
 const mapRandom = ref<typeof MapRandom>()
 
