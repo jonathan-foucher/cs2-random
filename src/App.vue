@@ -61,7 +61,13 @@ setTimeout(() => {
         </div>
 
         <div v-show="showCards" class="row justify-center items-center player-card">
-          <PlayerCard v-for="playerId in numberOfPlayers" :key="playerId" ref="playerCards" :player-id="playerId" />
+          <PlayerCard
+            v-for="playerId in 5"
+            v-show="playerId <= numberOfPlayers"
+            :key="playerId"
+            ref="playerCards"
+            :player-id="playerId"
+          />
         </div>
 
         <div v-show="showCards" class="row justify-center items-center q-mt-lg">
