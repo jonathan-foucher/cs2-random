@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import type { QInput } from 'quasar'
 import WeaponRandom from '@/components/player/WeaponRandom.vue'
 import { useWeapons } from '@/composables/weapons'
@@ -10,7 +11,8 @@ const props = defineProps<{ playerId: number }>()
 const { getPistolGroups, getMainWeaponGroups } = useWeapons()
 
 const playerStore = usePlayerStore()
-const { getPlayerName, editPlayerName } = playerStore
+const { getPlayerName, editPlayerName, deletePlayer } = playerStore
+const { numberOfPlayers } = storeToRefs(playerStore)
 
 const pistolRandom = ref<typeof WeaponRandom>()
 const mainWeaponRandom = ref<typeof WeaponRandom>()
@@ -38,22 +40,25 @@ defineExpose({
       {{ playerName }}
     </q-card-section>
 
-    <q-btn flat round size="sm" icon="edit" class="absolute-top-right q-pa-sm">
-      <q-popup-edit
-        v-model="playerName"
-        v-slot="playerNamePopup"
-        @show="playerNameInput?.select()"
-        @save="savePlayerName"
-      >
-        <q-input
-          v-model="playerNamePopup.value"
-          ref="playerNameInput"
-          dense
-          @keyup.enter="playerNamePopup.set"
-          @keyup.esc="playerNamePopup.cancel"
-        />
-      </q-popup-edit>
-    </q-btn>
+    <div class="absolute-top-right q-pa-sm">
+      <q-btn flat round size="sm" icon="edit">
+        <q-popup-edit
+          v-model="playerName"
+          v-slot="playerNamePopup"
+          @show="playerNameInput?.select()"
+          @save="savePlayerName"
+        >
+          <q-input
+            v-model="playerNamePopup.value"
+            ref="playerNameInput"
+            dense
+            @keyup.enter="playerNamePopup.set"
+            @keyup.esc="playerNamePopup.cancel"
+          />
+        </q-popup-edit>
+      </q-btn>
+      <q-btn v-if="numberOfPlayers > 1" flat round size="sm" icon="delete" @click="deletePlayer(playerId)" />
+    </div>
 
     <q-card-section class="q-py-sm">
       <WeaponRandom ref="pistolRandom" :weapon-groups="getPistolGroups()" />

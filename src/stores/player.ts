@@ -11,6 +11,10 @@ export const usePlayerStore = defineStore('player', () => {
   const numberOfPlayers = ref<number>(parseInt(localStorage.getItem(LOCAL_STORAGE_NUMBER_OF_PLAYERS) ?? '1'))
   const PLAYER_IDS = [...Array(5).keys()].map((i) => i + 1)
 
+  const savePlayers = () => {
+    localStorage.setItem(LOCAL_STORAGE_PLAYERS, JSON.stringify(players.value))
+  }
+
   const { t } = useI18n()
 
   const getPlayerById = (id: number): Player | undefined => players.value.find((player: Player) => player.id === id)
@@ -28,7 +32,20 @@ export const usePlayerStore = defineStore('player', () => {
       players.value.push(newPlayer)
     }
 
-    localStorage.setItem(LOCAL_STORAGE_PLAYERS, JSON.stringify(players.value))
+    savePlayers()
+  }
+
+  const deletePlayer = (id: number): void => {
+    players.value = players.value.filter((player: Player) => player.id !== id)
+
+    for (const player of players.value) {
+      if (player.id > id) {
+        player.id--
+      }
+    }
+
+    numberOfPlayers.value--
+    savePlayers()
   }
 
   watch(numberOfPlayers, (newValue: number) => {
@@ -40,5 +57,6 @@ export const usePlayerStore = defineStore('player', () => {
     PLAYER_IDS,
     getPlayerName,
     editPlayerName,
+    deletePlayer,
   }
 })
