@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { WEAPONS_PATH, WEBPB_FILE_EXTENSION } from '@/constants'
 import { useImages } from '@/composables/images'
 import { useRandomize } from '@/composables/randomize'
-import { WEAPONS_PATH, WEBPB_FILE_EXTENSION } from '@/constants'
+import { useUtils } from '@/composables/utils'
 
 const props = defineProps<{ weaponGroups: Array<Array<string>> }>()
 const { getImagePath } = useImages()
@@ -16,6 +17,9 @@ const { launchRandomize } = useRandomize()
 const startRandomize = () => {
   launchRandomize(speed)
 }
+
+const { preloadSlides } = useUtils()
+preloadSlides(slideNumber, props.weaponGroups.length)
 
 defineExpose({
   startRandomize,

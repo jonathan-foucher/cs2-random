@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { MAPS_PATH, PNG_FILE_EXTENSION } from '@/constants'
 import { useMaps } from '@/composables/maps'
 import { useImages } from '@/composables/images'
 import { useRandomize } from '@/composables/randomize'
-import { MAPS_PATH, PNG_FILE_EXTENSION } from '@/constants'
+import { useUtils } from '@/composables/utils'
 
 const { getMaps } = useMaps()
 const maps = getMaps()
@@ -19,6 +20,9 @@ const { launchRandomize } = useRandomize()
 const startRandomize = () => {
   launchRandomize(speed)
 }
+
+const { preloadSlides } = useUtils()
+preloadSlides(slideNumber, maps.length)
 
 defineExpose({
   startRandomize,

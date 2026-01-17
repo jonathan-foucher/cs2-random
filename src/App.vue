@@ -11,6 +11,7 @@ const { t } = useI18n()
 
 const playerCards = ref<Array<typeof PlayerCard>>()
 const mapCard = ref<typeof MapCard>()
+const showCards = ref<boolean>(false)
 
 const playerStore = usePlayerStore()
 const { PLAYER_IDS } = playerStore
@@ -22,6 +23,10 @@ const startRandomize = (): void => {
   }
   mapCard.value?.startRandomize()
 }
+
+setTimeout(() => {
+  showCards.value = true
+}, 200)
 </script>
 
 <template>
@@ -43,10 +48,11 @@ const startRandomize = (): void => {
           <LanguageSelection class="absolute-top-right q-ma-md" />
         </div>
 
-        <div class="row justify-center items-center player-card">
+        <div v-show="showCards" class="row justify-center items-center player-card">
           <PlayerCard v-for="playerId in numberOfPlayers" :key="playerId" ref="playerCards" :player-id="playerId" />
         </div>
-        <div class="row justify-center items-center q-mt-lg">
+
+        <div v-show="showCards" class="row justify-center items-center q-mt-lg">
           <MapCard ref="mapCard" />
         </div>
       </q-page>
