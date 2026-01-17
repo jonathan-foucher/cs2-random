@@ -14,7 +14,7 @@ const slideNumber = ref<number>(getRandomSlideNumber())
 const speed = ref<number>(0)
 
 const { launchRandomize } = useRandomize()
-const startRandomize = () => {
+const startRandomize = (): void => {
   launchRandomize(speed)
 }
 

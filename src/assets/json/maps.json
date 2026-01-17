@@ -1,10 +1,10 @@
 [
   {
-    "type": "hostage_rescue",
+    "type": "bomb_plant",
     "maps": ["Ancient", "Anubis", "Dust II", "Inferno", "Mirage", "Nuke", "Overpass", "Train", "Vertigo"]
   },
   {
-    "type": "bomb_plant",
+    "type": "hostage_rescue",
     "maps": ["Italy", "Office"]
   }
 ]

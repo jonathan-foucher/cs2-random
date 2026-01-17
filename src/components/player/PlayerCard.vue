@@ -24,7 +24,7 @@ const savePlayerName = (value: string): void => {
   editPlayerName(props.playerId, value)
 }
 
-const startRandomize = () => {
+const startRandomize = (): void => {
   pistolRandom.value?.startRandomize()
   mainWeaponRandom.value?.startRandomize()
 }

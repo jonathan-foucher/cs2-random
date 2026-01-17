@@ -1,28 +1,39 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { MAPS_PATH, PNG_FILE_EXTENSION } from '@/constants'
-import { useMaps } from '@/composables/maps'
+import { useMapStore } from '@/stores/map'
 import { useImages } from '@/composables/images'
 import { useRandomize } from '@/composables/randomize'
 import { useUtils } from '@/composables/utils'
 
-const { getMaps } = useMaps()
-const maps = getMaps()
+const mapStore = useMapStore()
+const { selectedMaps } = storeToRefs(mapStore)
+const { disableRandomMap } = mapStore
 
 const { getImagePath } = useImages()
 
-const getRandomSlideNumber = (): number => Math.floor(Math.random() * maps.length)
+const getRandomSlideNumber = (): number => Math.floor(Math.random() * selectedMaps.value.length)
 
 const slideNumber = ref<number>(getRandomSlideNumber())
 const speed = ref<number>(0)
 
 const { launchRandomize } = useRandomize()
-const startRandomize = () => {
+const startRandomize = (): void => {
   launchRandomize(speed)
 }
 
 const { preloadSlides } = useUtils()
-preloadSlides(slideNumber, maps.length)
+preloadSlides(slideNumber, selectedMaps.value.length)
+
+watch(selectedMaps, (newValue: Array<string>) => {
+  if (newValue?.length > 0) {
+    slideNumber.value = getRandomSlideNumber()
+    preloadSlides(slideNumber, selectedMaps.value.length)
+  } else {
+    disableRandomMap()
+  }
+})
 
 defineExpose({
   startRandomize,
@@ -40,7 +51,7 @@ defineExpose({
     :autoplay="speed"
   >
     <q-carousel-slide
-      v-for="(map, index) in maps"
+      v-for="(map, index) in selectedMaps"
       :key="index"
       :name="index"
       loading="eager"

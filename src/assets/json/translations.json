@@ -1,14 +1,24 @@
 {
   "en-GB": {
+    "action": {
+      "save": "Save",
+      "cancel": "Cancel"
+    },
     "global": {
       "launch": "Launch",
+      "map": "Map",
       "number-of-players": "Number of players",
       "player": "Player"
     }
   },
   "fr-FR": {
+    "action": {
+      "save": "Sauvegarder",
+      "cancel": "Annuler"
+    },
     "global": {
       "launch": "Lancer",
+      "map": "Carte",
       "number-of-players": "Nombre de joueurs",
       "player": "Joueur "
     }
