@@ -48,7 +48,7 @@ defineExpose({
     animated
     infinite
     keep-alive
-    transition-next="slide-down"
+    transition-next="fade"
     :autoplay="speed"
   >
     <q-carousel-slide
@@ -67,7 +67,7 @@ defineExpose({
 
 <style scoped>
 .random-carousel {
-  background: linear-gradient(to right, #1e4b73, 60%, #cc9900);
+  background: transparent;
   max-height: 25vh;
   border-style: solid;
   border-width: 4px;
