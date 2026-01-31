@@ -12,6 +12,7 @@ const getRandomSlideNumber = (): number => Math.floor(Math.random() * props.weap
 
 const slideNumber = ref<number>(getRandomSlideNumber())
 const speed = ref<number>(0)
+const isPreloading = ref<boolean>(true)
 
 const { launchRandomize } = useRandomize()
 const startRandomize = (): void => {
@@ -20,7 +21,7 @@ const startRandomize = (): void => {
 }
 
 const { preloadSlides } = useUtils()
-preloadSlides(slideNumber, props.weaponGroups.length)
+preloadSlides(slideNumber, isPreloading, props.weaponGroups.length)
 
 defineExpose({
   startRandomize,
@@ -28,6 +29,7 @@ defineExpose({
 </script>
 
 <template>
+  <q-inner-loading :showing="isPreloading" class="carousel-loader" />
   <q-carousel
     v-model="slideNumber"
     class="random-carousel rounded-borders"
@@ -41,13 +43,16 @@ defineExpose({
       v-for="(weaponGroup, index) in weaponGroups"
       :key="index"
       :name="index"
-      class="column no-wrap justify-center"
+      loading="eager"
+      class="column no-wrap justify-center q-pa-xs"
     >
       <div class="row items-center no-wrap weapon-images-row">
         <q-img
+          v-show="!isPreloading"
           v-for="weapon in weaponGroup"
           :key="weapon"
           :src="getImagePath(weapon, WEAPONS_PATH, WEBPB_FILE_EXTENSION)"
+          loading="eager"
           height="100%"
           fit="scale-down"
         />
@@ -66,5 +71,11 @@ defineExpose({
 
 .weapon-images-row {
   height: 100%;
+}
+
+.carousel-loader {
+  height: 20vh;
+  background: transparent;
+  z-index: 1;
 }
 </style>

@@ -17,6 +17,7 @@ const getRandomSlideNumber = (): number => Math.floor(Math.random() * selectedMa
 
 const slideNumber = ref<number>(getRandomSlideNumber())
 const speed = ref<number>(0)
+const isPreloading = ref<boolean>(true)
 
 const { launchRandomize } = useRandomize()
 const startRandomize = (): void => {
@@ -25,12 +26,12 @@ const startRandomize = (): void => {
 }
 
 const { preloadSlides } = useUtils()
-preloadSlides(slideNumber, selectedMaps.value.length)
+preloadSlides(slideNumber, isPreloading, selectedMaps.value.length)
 
 watch(selectedMaps, (newValue: Array<string>) => {
   if (newValue?.length > 0) {
     slideNumber.value = getRandomSlideNumber()
-    preloadSlides(slideNumber, selectedMaps.value.length)
+    preloadSlides(slideNumber, isPreloading, selectedMaps.value.length)
   } else {
     disableRandomMap()
   }
@@ -42,6 +43,7 @@ defineExpose({
 </script>
 
 <template>
+  <q-inner-loading :showing="isPreloading" class="carousel-loader" />
   <q-carousel
     v-model="slideNumber"
     class="random-carousel rounded-borders"
@@ -59,7 +61,13 @@ defineExpose({
       class="column no-wrap justify-center q-pa-none"
     >
       <div class="row items-center no-wrap full-height">
-        <q-img :src="getImagePath(map, MAPS_PATH, PNG_FILE_EXTENSION)" loading="eager" height="100%" fit="fill" />
+        <q-img
+          v-show="!isPreloading"
+          :src="getImagePath(map, MAPS_PATH, PNG_FILE_EXTENSION)"
+          loading="eager"
+          height="100%"
+          fit="fill"
+        />
       </div>
     </q-carousel-slide>
   </q-carousel>
@@ -68,8 +76,14 @@ defineExpose({
 <style scoped>
 .random-carousel {
   background: transparent;
-  max-height: 25vh;
+  max-height: 20vh;
   border-style: solid;
   border-width: 4px;
+}
+
+.carousel-loader {
+  height: 20vh;
+  background: transparent;
+  z-index: 1;
 }
 </style>
