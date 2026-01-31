@@ -71,8 +71,17 @@ setTimeout(() => {
         </div>
 
         <div v-show="showCards" class="row justify-center items-center q-mt-lg">
-          <MapCard v-if="isRandomMapEnabled" ref="mapCard" />
-          <q-btn v-else color="green" size="lg" icon-right="map" class="column" @click="enableRandomMap" />
+          <div v-show="isRandomMapEnabled" class="column full-width items-center">
+            <MapCard ref="mapCard" />
+          </div>
+          <q-btn
+            v-show="!isRandomMapEnabled"
+            color="green"
+            size="lg"
+            icon-right="map"
+            class="column"
+            @click="enableRandomMap"
+          />
         </div>
       </q-page>
     </q-page-container>
