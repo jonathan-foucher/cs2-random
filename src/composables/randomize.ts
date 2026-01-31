@@ -2,8 +2,8 @@ import { ref } from 'vue'
 import type { Ref } from 'vue'
 
 export const useRandomize = () => {
-  const MAX_SPEED: number = 50
-  const MIN_SPEED: number = 1000
+  const MAX_SPEED: number = 100
+  const MIN_SPEED: number = 1500
 
   const timer = ref<ReturnType<typeof setTimeout>>()
 
@@ -12,8 +12,8 @@ export const useRandomize = () => {
       speed.value = 0
       return
     }
-    speed.value += 10
-    timer.value = setTimeout(() => randomize(speed), 200)
+    speed.value += 3
+    timer.value = setTimeout(() => randomize(speed), 150)
   }
 
   const launchRandomize = (speed: Ref<number>): void => {
